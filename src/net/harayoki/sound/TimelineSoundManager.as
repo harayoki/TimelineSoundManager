@@ -1,3 +1,19 @@
+/*
+
+USAGE
+・タイムラインにフレームラベル名とともにサウンド設定がしてあるMovieC1lipを用意する
+　MovieC1lipは外部から読み込んだものでも、ライブラリからnewしたものでもよい。
+　1フレーム名にはサウンド、ラベルとも何も設定せず、stop()だけ記述してある事を想定。
+　サウンド設定は2フレーム以降で。
+・applyClipへ引数として渡す。
+・ラベル名を引数にplaySeを呼び出す
+
+注意
+・iOSで外部から読み込んだswfを使う場合、その中のscript実行が無効になるので
+　読み込んだ側のscriptでstopをかけてやるとよい。
+
+*/
+
 package net.harayoki.sound
 {
 	import flash.display.FrameLabel;
@@ -7,6 +23,11 @@ package net.harayoki.sound
 	import flash.media.SoundTransform;
 	import flash.utils.getTimer;
 
+	/**
+	 * iOSなどスマートフォンデバイス上ではSound::playを実行すると負荷が高いようなので
+	 * タイムライン上のサウンドを鳴らす形式のサウンドエンジンを用意する。
+	 * @author harayoki
+	 */
 	public class TimelineSoundManager
 	{
 		
@@ -83,7 +104,7 @@ internal class Info
 {
 	public var clip:MovieClip;
 	public var id:String;
-	public var volume:Number = 1.0;
+	public var volume:Number = 1.0;//現状は個別の音量調整は無効です
 	public var lastPlayed:Number = 0;
 	public var noPlayWithin:Number = 50;
 	public function Info(clip:MovieClip,id:String,volume:Number=1.0)
