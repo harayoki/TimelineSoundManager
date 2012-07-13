@@ -23,6 +23,9 @@ package net.harayoki.sound
 		 */
 		public function applyClip(clip:MovieClip,volume:Number=1.0):void
 		{
+			
+			clip.gotoAndStop(1);//iOSでは内部でstopが書いてあっても効かないので強制で止める
+			
 			var scene:Scene = clip.scenes[0];
 			var frames:Vector.<FrameLabel> = Vector.<FrameLabel>(scene.labels);
 			for(var i:int=0;i<frames.length;i++)
